@@ -1,5 +1,10 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 session_start();
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 
 //Membuat koneksi ke data base
 $conn = mysqli_connect("localhost","root","","db_stockbarang");
@@ -248,5 +253,111 @@ if(isset($_POST['hapusbarangkeluar'])){
     }
 }
 
-?> 
+function fetchDataFromDatabase()
+{
+    global $conn; // Use the global connection variable
+
+    $result = mysqli_query($conn, "SELECT * FROM stock");
+    $data = array();
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+
+    return $data;
+}
+
+
+function exportToExcel()
+{
+    global $conn;
+
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    $data = fetchDataFromDatabase();
+
+    $sheet->setCellValue('A1', 'No');
+    $sheet->setCellValue('B1', 'Nama Barang');
+    $sheet->setCellValue('C1', 'Deskripsi');
+    $sheet->setCellValue('D1', 'Stock');
+    $sheet->setCellValue('E1', 'Harga');
+    $sheet->setCellValue('F1', 'Total Harga');
+
+    $row = 2;
+    $no = 1;
+
+    foreach ($data as $item) {
+        $sheet->setCellValue('A' . $row, $no++);
+        $sheet->setCellValue('B' . $row, $item['nama_barang']);
+        $sheet->setCellValue('C' . $row, $item['deskripsi']);
+        $sheet->setCellValue('D' . $row, $item['stock']);
+        $sheet->setCellValue('E' . $row, $item['harga']);
+        $sheet->setCellValue('F' . $row, $item['total_harga']);
+
+        $row++;
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    $filename = 'export_data.xlsx';
+
+    // Save the file to a temporary location
+    $tempFile = tempnam(sys_get_temp_dir(), 'excel');
+    $writer->save($tempFile);
+
+    // Set appropriate headers for download
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="' . $filename . '"');
+    header('Cache-Control: max-age=0');
+
+    // Read the file and send it to the browser
+    readfile($tempFile);
+    unlink($tempFile); // Remove the temporary file
+
+    exit;
+}
+
+function exportToPDF()
+{
+    global $conn;
+
+    require_once __DIR__ . '/vendor/autoload.php';
+
+    $data = fetchDataFromDatabase();
+
+    $html = '<table border="1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Deskripsi</th>
+                        <th>Stock</th>
+                        <th>Harga</th>
+                        <th>Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody>';
+
+    $no = 1;
+    foreach ($data as $item) {
+        $html .= '<tr>
+                    <td>' . $no++ . '</td>
+                    <td>' . $item['nama_barang'] . '</td>
+                    <td>' . $item['deskripsi'] . '</td>
+                    <td>' . $item['stock'] . '</td>
+                    <td>' . $item['harga'] . '</td>
+                    <td>' . $item['total_harga'] . '</td>
+                </tr>';
+    }
+
+    $html .= '</tbody></table>';
+
+    $mpdf = new \Mpdf\Mpdf();
+    $mpdf->WriteHTML($html);
+
+    $filename = 'export_data.pdf';
+    $mpdf->Output($filename, 'D'); // 'D' means force download
+
+    exit;
+}
 

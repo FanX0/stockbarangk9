@@ -57,6 +57,7 @@ require 'cek.php'
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                         Tambah Barang
                                 </button>
+                                
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

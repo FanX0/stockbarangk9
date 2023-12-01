@@ -2,6 +2,15 @@
 require 'function.php';
 require 'cek.php';
 
+
+if (isset($_POST['export_excel'])) {
+    exportToExcel();
+}
+
+if (isset($_POST['export_pdf'])) {
+    exportToPDF();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +67,13 @@ require 'cek.php';
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                                         Tambah Barang
                                 </button>
+                                 <!-- Tambahkan tombol ekspor ke Excel dan PDF -->
+                                <form method="post" style="display: inline-block;">
+                                    <button type="submit" class="btn btn-success" name="export_excel">Export to Excel</button>
+                                </form>
+                                <form method="post" style="display: inline-block;">
+                                    <button type="submit" class="btn btn-danger" name="export_pdf">Export to PDF</button>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -244,3 +260,7 @@ require 'cek.php';
         </div>
     </div>
 </html>
+
+
+
+
