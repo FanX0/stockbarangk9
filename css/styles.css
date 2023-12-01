@@ -6478,6 +6478,7 @@ a.close.disabled {
 
 .bg-primary {
   background-image: url(22k.gif);
+  
   background-size: contain;
   background-color: #ffc107 !important;
 }
@@ -10422,6 +10423,7 @@ a.text-dark:focus {
 html,
 body {
   height: 100%;
+  
 }
 
 .container,

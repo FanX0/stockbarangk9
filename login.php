@@ -60,6 +60,7 @@ if(!isset($_SESSION['log'])){
                                             </div>
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <button class="btn btn-primary" name="login">Login</button>
+                                                <a class="small" href="register.php">Belum punya akun? Daftar di sini</a>
                                             </div>
                                         </form>
                                     </div>
