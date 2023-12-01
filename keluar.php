@@ -112,7 +112,7 @@ require 'cek.php'
                                                         <!-- Modal body -->
                                                         <form method="post">
                                                         <div class="modal-body">
-                                                        <input type="text" name="Penerima" value="<?=$penerima;?>" class="form-control" required>
+                                                        <input type="text" name="penerima" value="<?=$penerima;?>" class="form-control" required>
                                                         <br>    
                                                         <input type="number" name="qty" value="<?=$qty;?>" class="form-control" required>
                                                         <br>    
@@ -171,12 +171,8 @@ require 'cek.php'
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            <div class="text-muted">Copyright &copy; K9</div>
+                          
                         </div>
                     </div>
                 </footer>

@@ -171,12 +171,8 @@ require 'cek.php'
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            <div class="text-muted">Copyright &copy; K9</div>
+                           
                         </div>
                     </div>
                 </footer>
@@ -234,5 +230,18 @@ require 'cek.php'
         </div>
         </div>
     </div>
+    
+    <script>
+    $(document).ready(function(){
+        // Check if the notification message is set in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const notificationMessage = urlParams.get('notification');
+
+        // If the notification message is set, show the notification
+        if (notificationMessage) {
+            alert(notificationMessage);
+        }
+    });
+</script>
 
 </html>
