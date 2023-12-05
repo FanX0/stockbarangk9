@@ -198,12 +198,7 @@ require 'cek.php'
             <div class="modal-header">
             <h4 class="modal-title">Tambah Barang Masuk</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <form method="post" style="display: inline-block;">
-              <button type="submit" class="btn btn-success" name="export_excel">Export to Excel</button>
-            </form>
-            <form method="post" style="display: inline-block;">
-              <button type="submit" class="btn btn-danger" name="export_pdf">Export to PDF</button>
-            </form>
+          
             </div>
             
             <!-- Modal body -->
